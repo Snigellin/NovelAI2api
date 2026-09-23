@@ -62,6 +62,12 @@ type openAIImageGenerationRequest struct {
 var imageModelNames = []string{
 	"nai-diffusion-5-full",
 	"nai-diffusion-5-curated",
+	"nai-diffusion-4-5-full",
+	"nai-diffusion-4-5-curated",
+	"nai-diffusion-4-full",
+	"nai-diffusion-4-curated",
+	"nai-diffusion-3",
+	"nai-diffusion-3-furry",
 }
 
 func (h *OpenAIHandler) ListModels(c *gin.Context) {
