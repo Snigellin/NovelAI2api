@@ -59,6 +59,11 @@ type openAIImageGenerationRequest struct {
 	ResponseFormat string `json:"response_format,omitempty"` // b64_json/url
 }
 
+var imageModelNames = []string{
+	"nai-diffusion-5-full",
+	"nai-diffusion-5-curated",
+}
+
 func (h *OpenAIHandler) ListModels(c *gin.Context) {
 	session := c.MustGet("session").(*service.Session)
 	models, err := h.TextService.ListOpenAIModels(c.Request.Context(), session.AuthToken)
@@ -66,6 +71,7 @@ func (h *OpenAIHandler) ListModels(c *gin.Context) {
 		writeOpenAIUpstreamAwareError(c, err)
 		return
 	}
+	models = append(models, imageModelNames...)
 	data := make([]gin.H, 0, len(models))
 	for _, id := range models {
 		data = append(data, gin.H{"id": id, "object": "model", "created": 0, "owned_by": "novelai"})
